@@ -1,0 +1,45 @@
+FROM python:3.8-alpine
+
+ENV LANG C.UTF-8
+ENV LC_ALL C.UTF-8
+
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
+
+# Set environment variables
+ENV DJANGO_DB_NAME=mydb
+ENV DJANGO_SU_NAME=admin
+ENV DJANGO_SU_EMAIL=someone@me.fr 
+ENV DJANGO_SU_PASSWORD=admin
+
+# Install curl
+RUN apk --no-cache add curl
+
+
+
+# Install required package
+RUN apk update && \
+    apk add --no-cache --virtual .build-deps \
+    ca-certificates mariadb-dev  \
+    gcc postgresql-dev linux-headers  \
+    libffi-dev openssl-dev musl-dev jpeg-dev zlib-dev \
+    git bash \
+    build-base \
+    libffi-dev \
+    libjpeg-turbo-dev \
+    zlib-dev  && \
+    pip install mysqlclient 
+    
+WORKDIR /app
+
+COPY ./requirements.txt ./
+
+# Install requirements.txt
+#RUN pip install --no-cache-dir -r  ./requirements.txt
+RUN pip install  --use-pep517 -r  ./requirements.txt
+
+COPY  .  .
+
+# let's replace ugettext_lazy by gettext_lazy in djangocms forms
+RUN chmod +x /app/bash_script/*.sh
+#RUN sed -i "s/ugettext_lazy/gettext_lazy/g" "/usr/local/lib/python3.8/site-packages/djangocms_forms/apps.py"

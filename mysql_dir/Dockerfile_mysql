@@ -1,0 +1,3 @@
+FROM mysql:latest
+#COPY grant_mysql_permissions.sh /tmp/grant_mysql_permissions.sh 
+#RUN chmod +x /tmp/grant_mysql_permissions.sh 
