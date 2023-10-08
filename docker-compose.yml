@@ -7,7 +7,7 @@ services:
     build:
       context: ./mysql_dir
       dockerfile: Dockerfile_mysql
-    container_name:  mysql_cont #the name we give to this container
+    container_name:  responsive_mysql_cont #the name we give to this container
     restart: always #always restart to be sure it is always running
     env_file:
       - ./mysql_dir/mysql_env_dir/file.env #this file has all our nvironment variables
@@ -23,7 +23,7 @@ services:
     build:
       context: ./my_blog_project #My Django BASE_DIR directory
       dockerfile: Dockerfile_web #The Dockerfile to use
-    container_name:  web_cont #The name i give to this container
+    container_name:  responsive_web_cont #The name i give to this container
     env_file:
       - ./my_blog_project/web_env/file.env #this file has all our environment variables
     command: /bin/sh -c "./bash_script/wait-for-it.sh -h db -p 3306 --timeout=300 && 
@@ -31,7 +31,7 @@ services:
              python /app/manage.py makemigrations && 
              python /app/manage.py migrate && 
              ./bash_script/create_superuser_dev.sh && 
-             python /app/manage.py runserver 0.0.0.0:8000"
+             watchmedo auto-restart --recursive --directory=/app --pattern=*.py --pattern=*.html --pattern=*.sh -- python /app/manage.py runserver 0.0.0.0:8000"
     volumes:
       - web_static_volume:/app/staticfiles  #  In Dockerfile_web , i've already copied ./my_django_project/shoplink/static
                                        #  But when i run  python manage.py collectstatic --noinput
@@ -49,7 +49,7 @@ services:
     build:
       context: ./nginx_dir
       dockerfile: Dockerfile_nginx
-    container_name:  nginx_cont
+    container_name:  responsive_nginx_cont
     restart: unless-stopped
     volumes:
       - ./nginx_dir/conf_dir:/etc/nginx/conf.d

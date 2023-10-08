@@ -22,6 +22,11 @@ djangocms-video                 # plugin for video ['mp4', 'webm', 'ogv']
 djangocms-googlemap             # add googlemap plugin
 easy-thumbnails
 # djangocms-forms <-- souleve des erreurs  ImportError: cannot import name 'ugettext_lazy' from 'django.utils.translation' (/usr/local/lib/python3.8/site-packages/django/utils/translation/__init__.py),
+djangocms-column             # for multi column plugin
+# djangocms-forms
 
 # djangocms-categorization                    #  To add Category
 djangocms-aldryn-categories==2.0.1          #  To add Category
+
+#  LIVE-RELOAD : reload after modi of *.html, *.py, *.sh
+watchdog

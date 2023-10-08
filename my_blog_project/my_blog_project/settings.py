@@ -70,9 +70,10 @@ INSTALLED_APPS = [
     'menus',
     'treebeard',
     'sekizai',
+    'djangocms_column',
 
     # -- my applications ---
-    'my_blog_app',
+    'blog',
 
     # --- wizard utils for plugin ----
     'djangocms_text_ckeditor',  # This add a text pludin to content wizard, if you remove, you can't have text plugin
@@ -87,7 +88,7 @@ INSTALLED_APPS = [
     'djangocms_video',          # plugin application for video : ['mp4', 'webm', 'ogv']
     'djangocms_googlemap',       # googlemap plugin application
     'easy_thumbnails',
-    #'djangocms_forms' <-- this cause somme erreur
+    #'djangocms_forms', #<-- this cause somme erreur
 
     #'djangocms_categorization'
     'aldryn_categories'
@@ -213,7 +214,8 @@ LANGUAGES = (
     ('en-us', _('American English')),
     ('en', _('English')),
     ('de', _('Deutsch')),
-    ('fr', _('French'))
+    ('fr', _('French')), 
+    ('nl', _('Nederlands'))
 )
 
 CMS_LANGUAGES = {
@@ -255,11 +257,21 @@ CMS_LANGUAGES = {
             'name': gettext('fr'),
             'redirect_on_fallback': True,
         },
+
+        {
+            'public': True,
+            'code': 'nl',
+            'hide_untranslated': False,
+            'name': gettext('nl'),
+            'redirect_on_fallback': True,
+        },
     ],
 }
 
 CMS_TEMPLATES = [
-   
+    ('base.html', 'Blog Base page'),
+    ('header.html', 'Blog Header page'),
+    ('footer.html', 'Blog Footer page'),
     ('blogpage.html', 'Blog Page with Sidebar'), #this must render our  blog page
     ('article.html', 'Blog Article'),
     ('sidebar.html', 'Blog Sidebar')
@@ -302,3 +314,17 @@ THUMBNAIL_ALIASES = {
 # TO BE Able to est the djangocms-form, must provided email like hat (we do no us djangocms forms yet so we comment it)
 #EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 #EMAIL_FILE_PATH = '/Users/ibrahimatraore/maildump'
+
+VIDEO_AUTOPLAY =  False # or True, depending on your desired value
+VIDEO_AUTOHIDE = False
+VIDEO_FULLSCREEN = True
+VIDEO_LOOP = False
+VIDEO_AUTOPLAY = False
+VIDEO_BG_COLOR = "000000"
+VIDEO_TEXT_COLOR = "FFFFFF"
+VIDEO_SEEKBAR_COLOR = "13ABEC"
+VIDEO_SEEKBARBG_COLOR = "333333"
+VIDEO_LOADINGBAR_COLOR = "828282"
+VIDEO_BUTTON_OUT_COLOR = "333333"
+VIDEO_BUTTON_OVER_COLOR = "000000"
+VIDEO_BUTTON_HIGHLIGHT_COLOR = "FFFFFF"
