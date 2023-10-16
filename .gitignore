@@ -1,3 +1,5 @@
 venv
 staticfiles/
 __int__*
+*backup.sql
+*pycache*

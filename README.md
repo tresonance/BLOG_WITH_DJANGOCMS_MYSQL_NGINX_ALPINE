@@ -24,9 +24,9 @@ You have the above informations  inside : my_blog_project/web_env/file.env
 ```
 
 <h3 style="color:#DdD3F3">C - LANDING PAGE</h3>
-<p><img src="./my_blog_project/my_blog_app/static/images/readme_img/blog.png" /></p>
+<p><img src="./my_blog_project/blog/static/images/readme_img/blog.png" /></p>
 
-<p><img src="./my_blog_project/my_blog_app/static/images/readme_img/blog_footer.png" /></p>
+<p><img src="./my_blog_project/blog/static/images/readme_img/blog_footer.png" /></p>
 
 <h3 style="color:#DdD3F3">D - USEFULS LINKS</h3>
 All thanks to "Daily Tuition channel"  for his design.

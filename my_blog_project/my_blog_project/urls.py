@@ -21,12 +21,12 @@ from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
 from django.urls import include, path, re_path
 
-app_name = 'my_blog_app'  # Remplacez 'votre_application' par le nom de votre application
-
+app_name = 'blog' 
 
 urlpatterns = [
     re_path(r'^admin/', admin.site.urls),
-    re_path(r'^my_blog_app/', include('my_blog_app.urls', namespace='my_blog_app')),
+    re_path('ckeditor/', include('ckeditor_uploader.urls')),
+    re_path(r'^blog/', include('blog.urls', namespace='blog')), #<-- we  remove this because he blog application is now integrated to the cms (see cms_apps.py script)
     #re_path(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap',{'sitemaps': {'cmspages': CMSSitemap}}),
     re_path(r'^select2/', include('django_select2.urls')),  #for intenal link, see 'django-select2', in INSTALLED_APPLICAION inside sttings.py
     #re_path(r'^', include('djangocms_forms.urls')), # for djangocms form plugin, we comment becaus we have rrors while importing dangocms-forms inside INSTALLED_APPLICATIONS and requirements.txt
@@ -34,6 +34,8 @@ urlpatterns = [
     # Autres entrées de chemin (path) de votre projet...
 
 ] 
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Ajoutez les URLs statiques pour les fichiers média en développement
 if settings.DEBUG:

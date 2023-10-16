@@ -1,0 +1,161 @@
+{% load cms_tags sekizai_tags %}
+{% load static %}
+
+
+{% block title %}{% page_attribute "page_title" %}{% endblock title %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ibrahima Blog</title>
+
+    <!-- font awesome icons cdn -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
+
+    <!-- swiper slider css file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.css" integrity="sha512-m3pAvNriL711NMlhkZHK6K4Tu2/RjtrzyjxZU8mlAbxxoDoURy27KajN1LGTLeEEPvaN12mKAgSCrYEwF9y0jA==" crossorigin="anonymous" />
+
+    <!-- custom style.css file -->
+    <link href="{% static 'css/blogpage.css' %}" rel="stylesheet">
+    <!-- render css -->
+    {% render_block 'css' %}
+</head>
+<body>
+      <!-- DELETE THIS TOOLBAR AFTER -->
+      <br />
+      {% cms_toolbar %}
+      <br /><br />
+      <!-- END DELETE THIS TOOLBAR AFTER -->
+  
+    <!-- Header -->
+       <header id="header" class="shadow bg-light">
+            {% include 'header.html' %}
+       </header>
+    <!-- .Header -->
+
+    <!-- Main Site -->
+       <main id="site-main">
+
+            <!-- Blog Post Section -->
+                <section id="posts">
+                    <div class="container">
+                        <div class="grid">
+                            {% for data in combined_data %}
+                            <!-- article -->
+                                <div class="grid-item">
+                                    <article class="article">
+                                        <div class="card">
+                                            <div class="overflow-img">
+                                                <a href="{%  url 'blog:article_detail' article_id=forloop.counter  %}">
+                                                    <img src="{% static data.image.image_article  %}" class="img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                            <div class="card-body text-center px-1">
+                                                <a href="#" class="text-title display-1 text-dark">
+                                                    {{ data.article.title }}
+                                                </a>
+                                                <p class="secondary-title text-secondary display-3">
+                                                    <span><i class="far fa-clock text-primary"></i> {{ data.article.edit_time|date:"D d, Y H:i" }} </span>
+                                                    <span><i class="far fa-comments text-primary"></i> {{ articles_comment_total }} </span>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                {% empty %}
+                                    Aucun article n'est disponible.
+                                {% endfor %}
+                            <!-- .article -->
+                            <!-- article -->
+                        </div>
+                        <div class="text-center">
+                            <button class="btn btn-primary secondary-title text-light">Load More Posts...</button>
+                        </div>
+                    </div>
+                </section>
+            <!-- .Blog Post Section -->
+
+            <!-- Swiper slider -->
+                <section class="slider">
+                    <div class="container">
+
+                        <!-- Slider main container -->
+                            <div class="swiper-container">
+                                <!-- Additional required wrapper -->
+                                <div class="swiper-wrapper">
+                                    <!-- Slides -->
+                                    <div class="swiper-slide">
+                                        <a href="#">
+                                            <img src="{% static 'images/articles/slider/img1.jpg' %}" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                     <!-- Slides -->
+                                      <!-- Slides -->
+                                      <div class="swiper-slide">
+                                        <a href="#">
+                                            <img src="{% static 'images/articles/slider/img2.jpg' %}" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                     <!-- Slides -->
+                                      <!-- Slides -->
+                                    <div class="swiper-slide">
+                                        <a href="#">
+                                            <img src="{% static 'images/articles/slider/img3.jpg' %}" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                        <!-- Slides -->
+                                             <!-- Slides -->
+                                    <div class="swiper-slide">
+                                        <a href="#">
+                                            <img src="{% static 'images/articles/slider/img4.jpg' %}" class="img-fluid" alt="">
+                                        </a>
+                                    </div>
+                                        <!-- Slides -->
+                                        <div class="swiper-slide">
+                                            <a href="#">
+                                                <img src="{% static 'images/articles/slider/img5.jpg' %}" class="img-fluid" alt="">
+                                            </a>
+                                        </div>
+                                            <!-- Slides -->
+                                            <div class="swiper-slide">
+                                                <a href="#">
+                                                    <img src="{% static 'images/articles/slider/img6.jpg' %}" class="img-fluid" alt="">
+                                                </a>
+                                            </div>
+                                                <!-- Slides -->
+                                                <div class="swiper-slide">
+                                                    <a href="#">
+                                                        <img src="{% static 'images/articles/slider/img7.jpg' %}" class="img-fluid" alt="">
+                                                    </a>
+                                                </div>
+                                                <!-- Slides -->
+
+                                </div>
+                            </div>
+
+                    </div>
+                </section>
+             <!-- .Swiper slider -->
+
+       </main>
+    <!-- .Main Site -->
+
+    <!-- footer -->
+       <footer id="footer">
+            {% include 'footer.html' %}
+       </footer>
+    <!-- .footer -->
+
+
+    <!-- masonry libray for horizontal grid -->
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.js"></script>
+
+    <!-- swiper slider cdn -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/6.4.5/swiper-bundle.min.js" integrity="sha512-1LlEYE0qExJ/GUfAJ0k2K2fB5sIvMv/q6ueo3syohvQ3ElWDQVSMUOf39cxaDWHtNu7M6lF6ZC1H6A1m3SvheA==" crossorigin="anonymous"></script>
+
+    <!-- custom javascript main.js file -->
+    <script src="{% static 'js/blogpage.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+
+
+<!-- article -->
+<div class="grid-item">
+    <article class="article">
+        <div class="card">
+            <div class="overflow-img">
+                <!-- Use a direct URL to the article detail page -->
+                <a href="{{ instance.article.get_absolute_url }}">
+                    <!-- Make sure you have the correct image URL -->
+                    <img src="{{ instance.article.image_article.url }}" class="img-fluid" alt="Article Image">
+                </a>
+            </div>
+            <div class="card-body text-center px-1">
+                <a href="{{ instance.article.get_absolute_url }}" class="text-title display-1 text-dark">
+                    {{ instance.article.title }}
+                </a>
+                <!-- DELETE ME -->
+                <h1>IBRAHIMA IS RYING PLUGIN</h1>
+                <!-- DELETE ME -->
+                <p class="secondary-title text-secondary display-3">
+                    <span><i class="far fa-clock text-primary"></i> {{ instance.article.edit_time|date:"D d, Y H:i" }}</span>
+                    <!-- You may need to pass the comment count to the template -->
+                    <!-- <span><i class="far fa-comments text-primary"></i> {{ instance.article.comments.count }}</span> -->
+                </p>
+            </div>
+        </div>
+    </article>
+</div>

@@ -43,15 +43,17 @@ TEMPLATE_LOADERS = (
 )
 
 
+MEDIA_URL = "/media/"
+MEDIA_ROOT = os.path.join(BASE_DIR, 'blog', 'media')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'my_blog_app', 'media')
+#ckeditor upload path
+CKEDITOR_UPLOAD_PATH = os.path.join(BASE_DIR, "uploads_img")
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR,   'staticfiles') ## python manage.py collectstatic will creat this dir and store all satic files from all application hre
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'my_blog_app',  'static'), #he my_blog_app static files path application
+    os.path.join(BASE_DIR, 'blog',  'static'), #he blog static files path application
 )
 
 
@@ -78,6 +80,7 @@ INSTALLED_APPS = [
     # --- wizard utils for plugin ----
     'djangocms_text_ckeditor',  # This add a text pludin to content wizard, if you remove, you can't have text plugin
     'filer',                    # from django-cms-filer: file and media 
+    'parler',
     'djangocms_link',           # this plugin help us to add link to my page 
     'django_select2',           # to enable internal link
     'djangocms_picture',        # plugin to upload image
@@ -89,7 +92,8 @@ INSTALLED_APPS = [
     'djangocms_googlemap',       # googlemap plugin application
     'easy_thumbnails',
     #'djangocms_forms', #<-- this cause somme erreur
-
+    'ckeditor',
+    'ckeditor_uploader',
     #'djangocms_categorization'
     'aldryn_categories'
 
@@ -120,7 +124,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [    
-            os.path.join(BASE_DIR, 'my_blog_app', 'templates' ),
+            os.path.join(BASE_DIR, 'blog', 'templates' ),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -268,8 +272,11 @@ CMS_LANGUAGES = {
     ],
 }
 
+PARLER_LANGUAGES = CMS_LANGUAGES
+
 CMS_TEMPLATES = [
     ('base.html', 'Blog Base page'),
+    ('blog_plugins/article.html', 'Plugin Article'),
     ('header.html', 'Blog Header page'),
     ('footer.html', 'Blog Footer page'),
     ('blogpage.html', 'Blog Page with Sidebar'), #this must render our  blog page
@@ -284,7 +291,7 @@ DJANGOCMS_SNIPPET_SEARCH = True
 DJANGOCMS_GOOGLEMAP_API_KEY = '' # You need googlemap API KEY to use googlmap plugin
 
 # ADDITIONAL ATTRIB FOR CK-EDITOR
-CKEDITOR_SETTINGS = {
+CKEDITOR_SETTINGS2 = {
  'toolbar':[
         ['Undo', 'Redo'],
         ['cmsplugins', '-', 'ShowBlocks'],
@@ -303,6 +310,35 @@ CKEDITOR_SETTINGS = {
         'fontSize_sizes': 'Small/10px;Normal/13px;Large/16px;Larger/18px;',
 }
 
+
+CKEDITOR_SETTINGS = {
+    'toolbar_CMS': [
+        [ 'Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
+        ['Undo', 'Redo'],
+        ['cmsplugins', 'cmswidget'],
+        ['Find', 'Replace'],
+        ['SelectAll'], 
+        ['Scayt'],
+        ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'HiddenField'],
+        ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates'],
+        '/',
+        ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript'], 
+        ['CopyFormatting', 'RemoveFormat'],
+        ['NumberedList', 'BulletedList'],
+        ['Outdent', 'Indent'],
+        ['Blockquote', 'CreateDiv'],
+        ['JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+        ['BidiLtr', 'BidiRtl', 'Language'],
+        ['Link', 'Unlink', 'Anchor'],
+        ['CodeSnippet', 'Image2'],
+        ['Html5audio', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'],
+        '/',
+        ['Styles', '-', 'Format', '-', 'Font', '-', 'FontSize'],
+        ['TextColor', 'BGColor'],
+        ['About'],
+        ['Maximize', 'ShowBlocks']
+    ]
+}
 
 # For thumnails picture
 THUMBNAIL_ALIASES = {
@@ -328,3 +364,68 @@ VIDEO_LOADINGBAR_COLOR = "828282"
 VIDEO_BUTTON_OUT_COLOR = "333333"
 VIDEO_BUTTON_OVER_COLOR = "000000"
 VIDEO_BUTTON_HIGHLIGHT_COLOR = "FFFFFF"
+
+
+CKEDITOR_CONFIGS = {
+    'default': {
+     
+        'toolbar_Custom': [
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll']},
+            {'name': 'forms',
+             'items': ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton',
+                       'HiddenField']},
+            '/',
+            {'name': 'basicstyles',
+             'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph',
+             'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-',
+                       'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl',
+                       'Language']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert',
+             'items': ['Image', 'Youtube','Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe']},
+            '/',
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+            {'name': 'about', 'items': ['CodeSnippet']},
+            {'name': 'about', 'items': ['About']},
+            '/',  # put this to force next toolbar on new line
+            {'name': 'yourcustomtools', 'items': [
+                # put the name of your editor.ui.addButton here
+                'Preview',
+                'Maximize',
+
+            ]},
+        ],
+        'toolbar': 'Custom',  # put selected toolbar config here
+        'toolbarGroups': [{ 'name': 'document', 'groups': [ 'mode', 'document', 'doctools' ] }],
+        'height': 400,
+        # 'width': '100%',
+        'filebrowserWindowHeight': 725,
+        'filebrowserWindowWidth': 940,
+        'toolbarCanCollapse': True,
+        'mathJaxLib': '//cdn.mathjax.org/mathjax/2.2-latest/MathJax.js?config=TeX-AMS_HTML',
+        'tabSpaces': 4,
+        'extraPlugins': ','.join([
+            'uploadimage', # the upload image feature
+            # your extra plugins here
+            'div',
+            'autolink',
+            'autoembed',
+            'embedsemantic',
+            'autogrow',
+            'devtools',
+            'widget',
+            'lineutils',
+            'clipboard',
+            'dialog',
+            'dialogui',
+            'elementspath',
+            'codesnippet',
+        ]),
+    }
+}
+

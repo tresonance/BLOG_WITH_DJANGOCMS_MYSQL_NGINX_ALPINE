@@ -1,4 +1,4 @@
--- Example of initializing "sellers" and "buyers" tables with 15 entries each
+-- Example of initializing "blog_article"  tables with 9 entries each
 /*
 CREATE DATABASE IF NOT EXISTS mydb;
 USE mydb;

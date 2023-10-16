@@ -1,0 +1,30 @@
+#!/bin/bash 
+
+# -------------------------------------------------------------------------------
+# To run your djangocms
+#
+# -------------------------------------------------------------------------------
+ docker-compose build
+
+ docker volume prune &&  docker-compose down | docker-compose down -v | docker ps -a | grep django | awk '{print $1}' | xargs docker rm -f  && docker-compose up
+
+
+
+# -------------------------------------------------------------------------------
+# Before shutting down your container, please backup
+#
+# -------------------------------------------------------------------------------
+source sh_dump_blog_data.sh 
+
+
+# -------------------------------------------------------------------------------
+# After REstarting containers: restore the data
+#
+# -------------------------------------------------------------------------------
+[1]: source sh_restore_dumped_data.sh 
+
+[2]: docker exec -it responsive_mysql_cont bash
+
+[3]: mysql -u root -p mydb < docker-entrypoint-initdb.d/queries/backup.sql;
+
+[4 Reload]:  localhost:8000/blog/articles
